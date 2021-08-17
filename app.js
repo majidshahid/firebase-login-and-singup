@@ -14,13 +14,13 @@ function singup(){
 
     firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
     .then((userCredential) => {
-      // Signed in 
+     
       console.log("ok done")
 
     
       firebase.database().ref('student').push(data)
-      window.location = 'login.html'
-      // ...
+    
+     
     })
     .catch((error) => {
       var errorCode = error.code;
@@ -35,12 +35,20 @@ function singup(){
 
 var login =()=>{
     firebase.auth().signInWithEmailAndPassword(email.value, password.value)
-    .then((userCredential) => {
+    .then((res) => {
       // Signed in
-      var user = userCredential.user;
-      console.log(user)
-      window.location="profile.html"
+      // var user = userCredential.user;
+      // console.log(res.user.uid)
+      
       // ...
+      console.log(res.user.uid)
+      // firebase.database().ref(`student/${res.user.uid}`.once('value',(data)=>{
+      //   console.log(data.value())
+      // }
+      // )
+      // )
+      localStorage.setItem("uid",res.user.uid)
+window.location="profile.html"
     })
     .catch((error) => {
       var errorCode = error.code;
